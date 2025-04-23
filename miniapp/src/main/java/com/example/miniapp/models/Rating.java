@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document
+@Document("ratings")
 public class Rating {
     @Id
     private String ID;
@@ -29,13 +29,13 @@ public class Rating {
 
     }
 
-    public Rating(Long entityId, String entityType, Integer score, String comment) {
+    public Rating(Long entityId, String entityType, Integer score, String comment,LocalDateTime ratingDate) {
 
         this.entityId = entityId;
         this.entityType = entityType;
         this.score = score;
         this.comment = comment;
-
+        this.ratingDate = ratingDate;
 
     }
 
