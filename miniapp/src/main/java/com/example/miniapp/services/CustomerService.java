@@ -55,7 +55,7 @@ public class CustomerService {
 
     // Find customers by email domain
     public List<Customer> findCustomersByEmailDomain(String domain) {
-        return customerRepository.findCustomersByEmailDomain(domain);
+        return customerRepository.findCustomersByEmailDomain("%@" + domain);
     }
 
     // Find customers by phone prefix
