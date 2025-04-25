@@ -7,36 +7,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/captain")
+@RequestMapping("/api/captains")
 public class CaptainController {
+
     private final CaptainService captainService;
 
     public CaptainController(CaptainService captainService) {
         this.captainService = captainService;
     }
 
-    @PostMapping("/addCaptain")
-    public Captain addCaptain(@RequestBody Captain captain) {
+    // Create a new captain
+    @PostMapping
+    public Captain createCaptain(@RequestBody Captain captain) {
         return captainService.addCaptain(captain);
     }
 
-    @GetMapping("/allCaptains")
+    // Get all captains
+    @GetMapping
     public List<Captain> getAllCaptains() {
         return captainService.getAllCaptains();
     }
 
+    // Get captain by ID
     @GetMapping("/{id}")
     public Captain getCaptainById(@PathVariable Long id) {
         return captainService.getCaptainById(id);
     }
 
-    @GetMapping("/filterByRating")
-    public List<Captain> getCaptainsByRating(@RequestParam Double ratingThreshold) {
+    // Filter captains by minimum rating
+    @GetMapping("/filter/rating")
+    public List<Captain> filterCaptainsByRating(
+            @RequestParam(name = "minRating") Double ratingThreshold) {
         return captainService.getCaptainsByRating(ratingThreshold);
     }
 
-    @GetMapping("/filterByLicenseNumber")
-    public Captain getCaptainByLicenseNumber(@RequestParam String licenseNumber) {
+    // Find captain by license number
+    @GetMapping("/filter/license")
+    public Captain findCaptainByLicenseNumber(
+            @RequestParam(name = "licenseNumber") String licenseNumber) {
         return captainService.getCaptainByLicenseNumber(licenseNumber);
     }
 }

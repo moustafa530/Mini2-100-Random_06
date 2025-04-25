@@ -5,32 +5,36 @@ import com.example.miniapp.repositories.CaptainRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CaptainService {
+
     private final CaptainRepository captainRepository;
 
     public CaptainService(CaptainRepository captainRepository) {
         this.captainRepository = captainRepository;
     }
 
-    public Captain addCaptain(Captain captain) {
+    // Create operations
+    public Captain createCaptain(Captain captain) {
         return captainRepository.save(captain);
     }
 
-    public List<Captain> getAllCaptains() {
+    // Read operations
+    public List<Captain> retrieveAllCaptains() {
         return captainRepository.findAll();
     }
 
-    public Captain getCaptainById(Long id) {
-        return captainRepository.findById(id).orElse(null);
+    public Optional<Captain> retrieveCaptainById(Long id) {
+        return captainRepository.findById(id);
     }
 
-    public List<Captain> getCaptainsByRating(Double ratingThreshold) {
-        return captainRepository.findByRatingGreaterThan(ratingThreshold);
+    public List<Captain> retrieveCaptainsAboveRating(double minRating) {
+        return captainRepository.findByRatingGreaterThan(minRating);
     }
 
-    public Captain getCaptainByLicenseNumber(String licenseNumber) {
-        return captainRepository.findByLicenseNumber(licenseNumber);
+    public Optional<Captain> retrieveCaptainByLicense(String licenseNumber) {
+        return Optional.ofNullable(captainRepository.findByLicenseNumber(licenseNumber));
     }
 }
